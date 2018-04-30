@@ -10,7 +10,7 @@ function renderTestSuiteNavi(topics){
             var name = topics[i]["name"];
             var number = topics[i]["number"];
             var numberHref = number.split(".").join("_")
-            //var hrefCamelCase = camelize(topics[i]["name"]);
+
             html += `<li><a href="#${numberHref}" class="number"><span>${topics[i]["number"]}.</span> ${name}</a>`;
             if(topics[i]["subtopics"]){
                 html += " <a class='collapseList' href='#'>" + " <span>&or;</span></a>";
@@ -57,7 +57,7 @@ function renderTestSuiteMain(topics) {
                     var references = topics[i]["references"];
                     html +=`<button class='btn btn-secondary btn-xs collapseReferences' data-target="#collapse${numberHref}" aria-expanded="false" aria-controls="collapse${numberHref}">Show references</button>`;
 
-                    html +=`<div class='collapse' id='collapse${numberHref}' class="list-group-item"><ul class="list-group">`;
+                    html +=`<div class='collapse testSuiteGroup' id='collapse${numberHref}'><ul class="list-group">`;
                     for (var j = 0; j < references.length; j++) {
                         var linkName = "";
                         if (typeof references[j] === "object") {
@@ -181,3 +181,5 @@ function countRequests(testCases){
     }
     return numberOfRequests;
 }
+
+hljs.highlightBlock(document.getElementById("abbr"));

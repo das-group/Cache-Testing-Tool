@@ -141,7 +141,7 @@ pre span.line:before {
 
 }
 
-*[id]:before { 
+#main *[id]:before {
   display: block; 
   content: " "; 
   margin-top: -110px; 
