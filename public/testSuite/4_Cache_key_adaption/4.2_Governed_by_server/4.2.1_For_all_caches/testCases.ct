@@ -1,0 +1,45 @@
+# Cache key adaption>Governed by server>For all caches>
+
+## 4.2.1.1 Defining new cache keys: Add Accept
+GET /rsc -c 'ac:application/json' -s 'va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'va:Accept' -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/xml' -s 'va:Accept' -e 'ch:true;st:200'
+
+## 4.2.1.2 Defining new cache keys: Add Accept and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;va:Accept' -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=10;va:Accept' -e 'ch:true;st:200'
+
+## 4.2.1.3 Defining new cache keys: Add Accept and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:s-maxage=10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:s-maxage=10;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 4.2.1.4 Defining new cache keys: Add Accept and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'exp:10;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;va:Accept' -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/xml' -s 'exp:10;va:Accept' -e 'ch:true;st:200'
+
+## 4.2.1.5 Defining new cache keys: Add Accept, max-age=15 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=15;exp:5;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=15;exp:5;va:Accept' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=15;exp:5;va:Accept' -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=15;exp:5;va:Accept' -e 'ch:true;st:200'
+
+## 4.2.1.6 Defining new cache keys: Add Accept, s-maxage=15 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=15;exp:5;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:s-maxage=15;exp:5;va:Accept' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=15;exp:5;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:s-maxage=15;exp:5;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 4.2.1.7 Defining new cache keys: Add Accept, max-age=10, s-maxage=25 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=25;exp:5;va:Accept' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=10,s-maxage=25;exp:5;va:Accept' -p 15 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=25;exp:5;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml' -s 'cc:max-age=10,s-maxage=25;exp:5;va:Accept' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+# Cache key adaption>Governed by server>For all caches>

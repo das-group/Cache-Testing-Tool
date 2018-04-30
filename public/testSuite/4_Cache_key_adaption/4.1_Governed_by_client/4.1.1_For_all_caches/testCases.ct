@@ -1,0 +1,9 @@
+# Cache key adaption>Governed by client>For all caches>
+
+## 4.1.1.1 Cache key adaption: Add Accept
+GET /rsc -c 'ac:application/json;va:Accept' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml;va:Accept' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;va:Accept' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/xml;va:Accept' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+# Cache key adaption>Governed by client>For all caches>

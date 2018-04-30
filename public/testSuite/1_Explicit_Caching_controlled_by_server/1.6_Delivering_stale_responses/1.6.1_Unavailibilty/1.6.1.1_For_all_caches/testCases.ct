@@ -1,0 +1,35 @@
+# Explicit Caching controlled by server>Delivering stale responses>Unavailibilty>For all caches>
+
+## 1.6.1.1.1 Delivering stale responses unavailbility:  max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.2 Delivering stale responses unavailbility: s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.3 Delivering stale responses unavailbility: max-age=10 and s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;s-maxage:20;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;s-maxage:10' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.4 Delivering stale responses unavailbility: Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.5 Delivering stale responses unavailbility: max-age=10 and Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:20;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:20' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.6 Delivering stale responses unavailbility: s-maxage=10 and Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:20;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:20' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.7 Delivering stale responses unavailbility: s-maxage=10, max-age=5 and Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10;exp:20;t:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10;exp:20' -e 'ch:true' -e 'st:500'
+
+## 1.6.1.1.8 Delivering stale responses unavailbility: without freshness lifetime
+GET /rsc -c 'ac:application/json' -s 't:20' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -e 'ch:true' -e 'st:500'
+
+# Explicit Caching controlled by server>Delivering stale responses>Unavailibilty>For all caches>

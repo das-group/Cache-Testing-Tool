@@ -1,0 +1,11 @@
+# Explicit Caching with client originated policies>No transformed body>For all caches>
+
+## 3.7.1.1 No transformed body: no-transform
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:no-transform;ac:application/json' -s 'cc:max-age=5' -e 'ch:true;st:200'
+
+## 3.7.1.2 No transformed body: no-transform and range request
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:no-transform;ac:application/json;ra:bytes=0-1' -s 'cc:max-age=5' -e 'ch:true;st:200'
+
+# Explicit Caching with client originated policies>No transformed body>For all caches>

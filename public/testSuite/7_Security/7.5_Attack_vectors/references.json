@@ -1,0 +1,8 @@
+[
+	{
+		"RFC 7234 Section 8, last paragraph":"https://tools.ietf.org/html/rfc7234#section-8",
+		"Web Deception Attack":"https://omergil.blogspot.de/2017/02/web-cache-deception-attack.html",
+		"HTTP request smuggling":"http://projects.webappsec.org/w/page/13246928/HTTP%20Request%20Smuggling",
+		"HTTP response splitting":"https://www.owasp.org/index.php/HTTP_Response_Splitting"
+	}
+]

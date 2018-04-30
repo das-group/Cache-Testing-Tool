@@ -1,0 +1,15 @@
+# Explicit Caching controlled by server>Prohibition>For all caches>
+
+## 1.5.1.1 Prohibition: no-store
+GET /rsc -c 'ac:application/json' -s 'cc:no-store' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-store' -e 'ch:false;st:200'
+
+## 1.5.1.2 Prohibition: no-store and Last-Modified 1 hour before
+GET /rsc -c 'ac:application/json' -s 'cc:no-store;lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-store;lm:-3600' -e 'ch:false;st:200'
+
+## 1.5.1.3 Prohibition: no-transform and range request
+GET /rsc -c 'ac:application/json' -s 'cc:no-transform' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;ra:bytes=0-1' -s 'cc:no-transform'
+
+# Explicit Caching controlled by server>Prohibition>For all caches>

@@ -1,0 +1,55 @@
+# Explicit Caching with client originated policies>Only cached response>For all caches>
+
+## 3.6.1.1 Only cached response: Server max-age=5; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:max-age=5' -e 'ch:true;st:200'
+
+## 3.6.1.2 Only cached response: Server max-age=0; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=0' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:max-age=0' -e 'ch:false;st:504'
+
+## 3.6.1.3 Only cached response: Server s-maxage=5; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:s-maxage=5'
+
+## 3.6.1.4 Only cached response: Server s-maxage=0; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=0' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:s-maxage=0' -e 'ch:false;st:504'
+
+## 3.6.1.5 Only cached response: Server max-age=5 and s-maxage=10; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10' -p 7
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:max-age=5,s-maxage=10'
+
+## 3.6.1.6 Only cached response: Server max-age=10 and s-maxage=5; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=0' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:s-maxage=0'
+
+## 3.6.1.7 Only cached response: Server Expires in 10 second; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'exp:10'
+
+## 3.6.1.8 Only cached response: Server Expires 10 seconds before; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'exp:-10' -e 'ch:false;st:504'
+
+## 3.6.1.9 Only cached response: Server Expires now; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'exp:0' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'exp:0'
+
+## 3.6.1.10 Only cached response: Server max-age=10 and Expires in 5 seconds; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:max-age=10;exp:5'
+
+## 3.6.1.11 Only cached response: Server s-maxage=10 and Expires in 5 seconds; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:s-maxage=10;exp:5'
+
+## 3.6.1.12 Only cached response: Server max-age=10, s-maxage=20 and Expires in 5 seconds; Client only-if-cached
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:only-if-cached' -s 'cc:max-age=10,s-maxage=20;exp:5'
+
+## 3.6.1.13 Only cached response: Client only-if-cached; Server no freshness lifetime
+GET /rsc -c 'cc:ac=application/json' -e 'ch:false;st:200'
+GET /rsc -c 'cc:only-if-cached;ac:application/json' -e 'ch:true' -e 'st:504'
+
+# Explicit Caching with client originated policies>Only cached response>For all caches>

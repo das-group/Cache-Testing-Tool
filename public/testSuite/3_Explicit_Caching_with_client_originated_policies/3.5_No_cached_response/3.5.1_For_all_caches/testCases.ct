@@ -1,0 +1,31 @@
+# Explicit Caching with client originated policies>No cached response>For all caches>
+
+## 3.5.1.1 No cached response: Server max-age=5, Client no-store
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'cc:max-age=5' -e 'ch:false;st:200'
+
+## 3.5.1.2 No cached response: Server s-maxage=5; Client no-store
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+
+## 3.5.1.3 No cached response: Server Expires in 5 seconds; Client no-store
+GET /rsc -c 'ac:application/json' -s 'exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'exp:5' -e 'ch:false;st:200'
+
+## 3.5.1.4 No cached response: Server max-age=10 and Expires in 5 seconds; Client no-store
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+
+## 3.5.1.5 No cached response: Server s-maxage=10 and Expires in 5 seconds; Client no-store
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+
+## 3.5.1.6 No cached response: Server max-age=10, s-maxage=20 and Expires in 5 seconds; Client no-store
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+
+## 3.5.1.7 No cached response: Client no-store
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-store' -e 'ch:false;st:200'
+
+# Explicit Caching with client originated policies>No cached response>For all caches>

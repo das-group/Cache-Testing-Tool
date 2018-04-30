@@ -1,0 +1,87 @@
+# Explicit Caching controlled by server>Prohibition>For shared caches>
+
+## 1.5.2.1 Prohibition: private
+GET /rsc -c 'ac:application/json' -s 'cc:private' -e 'ch:false;st:200' 
+GET /rsc -c 'ac:application/json' -s 'cc:private' -e 'ch:false;st:200'
+
+## 1.5.2.2 Prohibition: private and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:private,max-age=10' -ep 'ch:false;st:200' -es 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,max-age=10' -ep 'ch:true;st:200' -es 'ch:false;st:200'
+
+## 1.5.2.3 Prohibition: private and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:private,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,s-maxage=10' -e 'ch:false;st:200'
+
+## 1.5.2.4 Prohibition: private Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:private' -e 'ch:false;st:200' 
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:private' -e 'ch:true;st:200' -es 'ch:false;st:200'
+
+## 1.5.2.5 Prohibition: private, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,max-age=10' -p 7 -e 'ch:false;st:200' 
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,max-age=10' -ep 'ch:false;st:200' -es 'ch:false;st:200'
+
+## 1.5.2.6 Prohibition: private, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,s-maxage=10' -e 'ch:false;st:200' -ep 'ch:true;st:200'
+
+## 1.5.2.7 Prohibition: private, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,max-age=10,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:private,max-age=10,s-maxage=10' -es 'ch:false;st:200' -ep 'ch:true;st:200'
+
+## 1.5.2.8 Prohibition: private="Set-Cookie" and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,private="Set-Cookie";sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,private="Set-Cookie"' -e 'ch:true;st:200'
+
+## 1.5.2.9 Prohibition: private="Set-Cookie" and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,private="Set-Cookie";sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,private="Set-Cookie"' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.10 Prohibition: private="Set-Cookie" and Expires in 10 secondes
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:private="Set-Cookie";sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:private="Set-Cookie"' -e 'ch:true;st:200'
+
+## 1.5.2.11 Prohibition: private="Set-Cookie" and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,private="Set-Cookie";sc:random' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,private="Set-Cookie"' -e 'ch:true;st:200'
+
+## 1.5.2.12 Prohibition: private="Set-Cookie" relative defintion s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:s-maxage=10,private="Set-Cookie";sc:random' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:s-maxage=10,private="Set-Cookie"' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.13 Prohibition: private="Set-Cookie", s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,s-maxage=20,private="Set-Cookie";sc:random' -p 15 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,s-maxage=20,private="Set-Cookie"' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.14 Prohibition: private="Set-Cookie"out freshness lifetime defintion
+GET /rsc -c 'ac:application/json' -s 'cc:private="Set-Cookie";sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private="Set-Cookie"' -e 'ch:true;st:200'
+
+## 1.5.2.15 Prohibition: private="X-Store-Forbidden" and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,private="X-Store-Forbidden";xsf:default;sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,private="X-Store-Forbidden";xsf:default' -e 'ch:true;st:200'
+
+## 1.5.2.16 Prohibition: private="X-Store-Forbidden" and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,private="X-Store-Forbidden";xsf:default;sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,private="X-Store-Forbidden";xsf:default' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.17 Prohibition: private="X-Store-Forbidden" and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10,private="X-Store-Forbidden";xsf:default;sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10,private="X-Store-Forbidden";xsf:default' -e 'ch:true;st:200'
+
+## 1.5.2.18 Prohibition: private="X-Store-Forbidden" and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,private="X-Store-Forbidden";xsf:default;sc:random' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,private="X-Store-Forbidden";xsf:default' -e 'ch:true;st:200'
+
+## 1.5.2.19 Prohibition: private="X-Store-Forbidden", s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:s-maxage=10,private="X-Store-Forbidden";xsf:default;sc:random' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:s-maxage=10,private="X-Store-Forbidden";xsf:default' -es 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.20 Prohibition: private="X-Store-Forbidden", max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,s-maxage=20,private="X-Store-Forbidden";xsf:default;sc:random' -p 15 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:5;cc:max-age=10,s-maxage=20,private="X-Store-Forbidden";xsf:default' -es 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 1.5.2.21 Prohibition: private="X-Store-Forbidden"
+GET /rsc -c 'ac:application/json' -s 'cc:private="X-Store-Forbidden";sc:random' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private="X-Store-Forbidden"' -e 'ch:true;st:200'
+
+# Explicit Caching controlled by server>Prohibition>For shared caches>

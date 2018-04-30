@@ -1,0 +1,51 @@
+# Implicit Caching>For private caches>
+
+## 2.3.1 Implicit caching: No time information
+GET /rsc -c 'ac:application/json' -s 'cc:private' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private' -e 'ch:true;st:200'
+
+## 2.3.2 Implicit caching: Status code 201
+GET /rsc -c 'ac:application/json' -s 'cc:private;st:201' -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:private;st:201' -e 'ch:true;st:201'
+
+## 2.3.3 Implicit caching: Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600'
+
+## 2.3.4 Implicit caching: Last-Modified one hour in the future
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:3600'
+
+## 2.3.5 Implicit validation: ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123' -e 'cb:true;st:200'
+
+## 2.3.6 Implicit validation: ETag and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;lm:-3600' -e 'ch:true;st:200'
+
+## 2.3.7 Implicit validation: ETag and Last-Modified one hour in the future
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;lm:3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;lm:3600' -e 'cb:true;st:200'
+
+## 2.3.8 Implicit validation: ETag and max-age=5
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;cc:max-age=5' -p 7 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;cc:max-age=5' -e 'cb:true;st:200'
+
+## 2.3.9 Implicit validation: ETag and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;exp=5' -p 7 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;et:123;exp:5' -e 'cb:true;st:200'
+
+## 2.3.10 Implicit validation: Last-Modified 1 hour before and max-age=5
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;cc:max-age=5' -p 7 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;cc:max-age=5' -e 'cb:true;st:200'
+
+## 2.3.11 Implicit validation: Last-Modified 1 hour before and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;exp:5' -p 7 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private;lm:-3600;exp:5' -e 'cb:true;st:200'
+
+# Implicit Caching>For private caches>

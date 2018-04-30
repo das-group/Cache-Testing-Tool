@@ -1,0 +1,42 @@
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For all caches>
+
+## 1.4.1.1.1 Validation stale response: ETag and relative freshness lifetime max-age=10 and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.1.2 Validation stale response: ETag and must-revalidate, but without freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'cc:must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:must-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.1.3 Validation stale response: ETag, Expires in 10 seconds and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:must-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:must-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.1.4 Validation stale response: ETag, max-age=20, Expires in 10 seconds and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,must-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,must-revalidate;et:123' -e 'ch:true;st:200'
+
+## 1.4.1.1.5 Validation stale response: Last-Modified 10 seconds before, max-age=10 and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10' -e 'cb:true;st:200'
+
+## 1.4.1.1.6 Validation stale response: Last-Modified 10 seconds before, max-age=10 and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:-10;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.1.7 Validation stale response: Last-Modified 10 hour in the future, max-age=10 and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:3600' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;lm:3600' -e 'cb:true;st:200'
+
+## 1.4.1.1.8 Validation stale response: max-age=10 and must-revalidate, but no validation tokens
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate'
+
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For all caches>

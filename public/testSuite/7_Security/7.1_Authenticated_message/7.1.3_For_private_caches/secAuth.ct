@@ -1,0 +1,19 @@
+## 8.1.1 Client-side Authenticated message: Request including Authorization header field and without freshness lifetime of response
+GET /rsc -c 'ac:application/json;az:basic secret' -s 'cc:private' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;az:basic secret' -s 'cc:private' -e 'ch:false;st:200'
+
+## 8.1.2 Client-side Authenticated message: Request including Authorization header field and relative freshness lifetime of response for cache with max-age=5
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=5' -e 'ch:true;st:200'
+
+## 8.1.4 Client-side Authenticated message: Request including Authorization header field and absolute freshness lifetime of response for cache with expiration (Expires) in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private;exp:5' -e 'ch:true;st:200'
+
+## 8.1.5 Client-side Authenticated message: Request including Authorization header field and relative as well as absolute freshness lifetime of response for cache with max-age=10 and expiration (Expires) in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=10;exp:5' -e 'ch:true;st:200'
+
+## 8.1.7 Client-side Authenticated message: Request including Authorization header field and relative as well as absolute freshness lifetime of response for private and shared cache with max-age=10, s-maxage=20 and expiration (Expires) in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:private,max-age=10,s-maxage=20;exp:5' -e 'ch:true;st:200'

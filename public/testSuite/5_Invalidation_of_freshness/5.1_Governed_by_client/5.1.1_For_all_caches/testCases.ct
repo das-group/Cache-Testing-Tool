@@ -1,0 +1,203 @@
+# Invalidation of freshness>Governed by client>For all caches>
+
+## 5.1.1.1 Invalidation: POST and without freshness lifetime definition
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+
+## 5.1.1.2 Invalidation: POST and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.3 Invalidation: POST and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.4 Invalidation: POST and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+
+## 5.1.1.5 Invalidation: POST, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -p 7 -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.6 Invalidation: POST, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -p 7 -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.7 Invalidation: POST, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:201'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.8 Invalidation: PUT but freshness lifetime
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+
+## 5.1.1.9 Invalidation: PUT and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.10 Invalidation: PUT and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.11 Invalidation: PUT and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+
+## 5.1.1.12 Invalidation: PUT, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.13 Invalidation: PUT, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.14 Invalidation: PUT, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.15 Invalidation: DELETE but no freshness lifetime
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+
+## 5.1.1.16 Invalidation: DELETE and with max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.17 Invalidation: DELETE and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.18 Invalidation: DELETE and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+
+## 5.1.1.19 Invalidation: DELETE, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.20 Invalidation: DELETE, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.21 Invalidation: DELETE, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.22 Invalidation: PATCH but no freshness lifetime
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+
+## 5.1.1.23 Invalidation: PATCH and with max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.24 Invalidation: PATCH and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.25 Invalidation: PATCH and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+
+## 5.1.1.26 Invalidation: PATCH, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.27 Invalidation: PATCH, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -p 7 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.28 Invalidation: PATCH, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:204'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+
+## 5.1.1.29 Invalidation: POST, max-age=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.30 Invalidation: PUT, max-age=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.31 Invalidation: DELETE, max-age=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.32 Invalidation: PATCH, max-age=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 5.1.1.33 Invalidation: POST, s-maxage=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.34 Invalidation: PUT, s-maxage=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.35 Invalidation: DELETE, s-maxage=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.36 Invalidation: PATCH, s-maxage=10 and status code 400
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 5.1.1.37 Invalidation: POST, Expires in 10 seconds before and status code 400
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+POST /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+
+## 5.1.1.38 Invalidation PUT, Expires 10 seconds before and status code 400
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+PUT /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+
+## 5.1.1.39 Invalidation: DELETE, Expires 10 seconds before and status code 400
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+DELETE /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+
+## 5.1.1.40 Invalidation: PATCH, Expires 10 seconds before and status code 400
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+PATCH /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+
+# Invalidation of freshness>Governed by client>For all caches>

@@ -1,0 +1,55 @@
+@(message: String) @main("Welcome to the Cache Tester") {
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4 col-md-3" id="sidebar">
+            <div id="navi">
+                <ul class="nav nav-sidebar">
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-8 col-sm-offset-4 offset-sm-4 col-md-9 col-md-offset-3 offset-md-3" id="content">
+            <div class="page-header" id="content-header">
+                <h1 class="display-1">
+                        Testsuite
+                    </h1>
+                <p class="lead justify">This testsuite contains a testcase collection for analyzing various web caching systems including client-internal (e.g. web browser caches), client- as well as server-side (e.g. forward and reverse proxies) and backbone caches ( e.g. CDNs). The test suite is based on the <a href="https://tools.ietf.org/html/rfc7234" target="_blank">RFC 7234</a> and paper <a href="#"><strong>Mind the Cache: Large-Scale Explorative Study of Web Caching</strong></a>. Please read this paper for more details.</p>
+                <p class="lead justify">The test cases are grouped according to the topics defined in Section 2 of the latter mentioned publication. Moreover, the testsuite contains the subtopics <em>For all caches, For shared caches, For private caches and For shared and private caches with different freshness lifetime or policy .</em> The topic <em>For all caches</em> indicates that corresponding test cases are dedicated for shared as well as private caches. Accordingly, test cases in <em>For shared caches</em> can applied for shared web caching systems (e.g. proxy caches or CDNs) and <em>For private caches</em> comprises test cases which are considered for privates caches such as web browser caches. For instance the test case collection group <a href="#1_1_1">1.1.1 For all caches</a> consist of test cases which analyze if the caches honor the explicit relative freshness lifetime definitions controlled by the origin server. These test cases can be applied for all cache, as the given control directives are dedicated for shared as well as private caches. The topic <em>For shared and private caches with different freshness lifetime or policy means</em> that this collection group includes test cases with multiple freshness lifetime or policy definitions. This means that the request/response definitions contain control directives for shared as well as private caches simultaneously. Also, each test case collection group may include further references which redirect you to the corresponding web caching standard Section or to other publication. Here you can obtain more details on control directives and issues which the test cases aim to evaluate. This test suite is not considered as definite. If you have any comments or suggestions, please do not hesitate to contact us.
+                </p>
+                <p class="lead justify">
+                    At the moment, our testsuite includes <strong class="totalTestCases">n</strong> test cases.
+                </p>
+                <p class="lead justify">
+                    Note, that for readability reasons we use abbreviations for the request/response header field definition.
+                    <pre>
+        <code class="javascript">
+var requestHeaderFields = {
+        "cc":"Cache-Control",
+        "ac":"Accept",
+        "inm":"If-None-Match",
+        "ims":"If-Modified-Since",
+        "az":"Authorization",
+        "ra":"Range"
+};
+
+var responseHeaderFields = {
+        "cc":"Cache-Control",
+        "et":"ETag",
+        "lm":"Last-Modified",
+        "ex":"Expires",
+        "va":"Vary"
+};
+        </code>
+    </pre>
+                </p>
+                <hr>
+                <div class="description">
+                </div>
+            </div>
+            <div id="main"></div>
+        </div>
+    </div>
+</div>
+<script src='@routes.Assets.versioned("javascripts/highlight.js")'></script>
+<script src='@routes.Assets.versioned("javascripts/javascript.js")'></script>
+<script src='@routes.Assets.versioned("javascripts/testSuiteRenderer.js")'></script>
+}

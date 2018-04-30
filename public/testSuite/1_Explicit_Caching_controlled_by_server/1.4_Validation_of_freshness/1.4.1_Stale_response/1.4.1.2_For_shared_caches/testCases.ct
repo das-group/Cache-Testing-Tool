@@ -1,0 +1,91 @@
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For shared caches>
+
+## 1.4.1.2.1 Validating stale response: s-maxage=10, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;et:123' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;et:123' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 1.4.1.2.2 Validating stale response: proxy-revalidate, ETag but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'cc:proxy-revalidate;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:proxy-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.2.3 Validating stale response: max-age=10, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;et:123' -p 10 -e 'ch:false;st:200' -ep 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.2.4 Validating stale response: s-maxage=10, must-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;et:123' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.2.5 Validating stale response: Expires in 10 seconds, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.2.6 Validating stale response: max-age=20, Expires in 10 seconds, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;et:123' -e 'ch:true;st:200'
+
+## 1.4.1.2.7 Validating stale response: max-age=20, s-maxage=30, Expires in 10 seconds, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;et:123' -e 'ch:true;st:200'
+
+## 1.4.1.2.8 Validating stale response: max-age=5, s-maxage=10, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;et:123' -p 10 -e 'ch:false;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;et:123' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 1.4.1.2.9 Validating stale response: s-maxage=10, proxy-revalidate and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;et:123' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;et:123' -e 'cb:true;st:200'
+
+## 1.4.1.2.10 Validating stale response: s-maxage=10, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;lm=-3600' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,proxy-revalidate;lm=-3600' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 1.4.1.2.11 Validating stale response: proxy-revalidate, Last-Modified one hour before but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'cc:proxy-revalidate;lm=-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:proxy-revalidate;lm=-3600' -e 'cb:true;st:200'
+
+## 1.4.1.2.12 Validating stale response: max-age=10, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;lm=-3600' -p 10 -e 'ch:false;st:200' -ep 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,proxy-revalidate;lm=-3600' -e 'cb:true;st:200'
+
+## 1.4.1.2.13 Validating stale response: s-maxage=10, must-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;lm=-3600' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,must-revalidate;lm=-3600' -e 'cb:true;st:200'
+
+## 1.4.1.2.14 Validating stale response: Expires in 10 seconds, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;lm=-3600' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:proxy-revalidate;lm=-3600' -e 'cb:true;st:200'
+
+## 1.4.1.2.15 Validating stale response: max-age=20, Expires in 10 seconds, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;lm=-3600' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,proxy-revalidate;lm=-3600' -e 'ch:true;st:200'
+
+## 1.4.1.2.16 Validating stale response: max-age=20, s-maxage=30, Expires in 10 seconds, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;lm=-3600' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,proxy-revalidate;lm=-3600' -e 'ch:true;st:200'
+
+## 1.4.1.2.17 Validating stale response: max-age=5, s-maxage=10, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;lm=-3600' -p 10 -e 'ch:false;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,proxy-revalidate;lm=-3600' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 1.4.1.2.18 Validating stale response: s-maxage=10, proxy-revalidate and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;lm=-3600' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;lm=-3600' -p 10 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;lm=-3600' -e 'cb:true;st:200'
+
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For shared caches>

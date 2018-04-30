@@ -1,0 +1,27 @@
+# Explicit Caching with client originated policies>Conditional request>Opaque and time-variant validation token in combination>For all caches>
+
+## 3.8.3.1.1 Conditional request: If-None-Match and If-Modified-Since with ETag and Last-Modified 10 seconds before
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10' -e 'cb:true;st:304'
+
+## 3.8.3.1.2 Conditional request: If-None-Match and If-Modified-Since with ETag, Last-Modified 10 seconds before and max-age=10
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10;cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10;;cc:max-age=10' -e 'cb:true;st:304'
+
+## 3.8.3.1.3 Conditional request: If-None-Match and If-Modified-Since with ETag, Last-Modified 10 seconds before and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10;cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10;cc:s-maxage=10' -e 'cb:true;st:304'
+
+## 3.8.3.1.4 Conditional request: If-None-Match and If-Modified-Since with ETag, Last-Modified 10 seconds before and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10;exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10;exp:10' -e 'cb:true;st:304'
+
+## 3.8.3.1.5 Conditional request: If-None-Match and If-Modified-Since with ETag, Last-Modified 10 seconds before, max-age=5 and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10;cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10;cc:max-age=5,s-maxage=10' -e 'cb:true;st:304'
+
+## 3.8.3.1.6 Conditional request: If-None-Match and If-Modified-Since with ETag, Last-Modified 10 seconds before, max-age=5, s-maxage=15 and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10;cc:max-age=5,s-maxage=15;exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123;ims:lm' -s 'et:123;lm:-10;cc:max-age=5,s-maxage=15;exp:10' -e 'cb:true;st:304'
+
+# Explicit Caching with client originated policies>Conditional request>Opaque and time-variant validation token in combination>For all caches>

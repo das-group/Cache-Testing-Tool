@@ -1,0 +1,13 @@
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For shared and private caches with different policy>
+
+## 1.4.1.4.1 Validating stale response: max-age=5, s-maxage=10 and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,must-revalidate;et:123' -p 10 -es 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10,must-revalidate;et:123' -es 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 1.4.1.4.2 Validating stale response: max-age=20, s-maxage=30, Expires in 10 seconds and must-revalidate
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,must-revalidate;et:123' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,must-revalidate;et:123' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10;cc:max-age=20,s-maxage=30,must-revalidate;et:123' -es 'ch:true;st:200' -ep 'ch:true;st:200'
+
+# Explicit Caching controlled by server>Validation of freshness>Stale response>For shared and private caches with different policy>

@@ -1,0 +1,150 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+
+main{
+    padding-top:20px;
+}
+.main{
+	padding-bottom: 20px;
+}
+
+.url{
+
+    color: violet;
+}
+
+.protocol{
+    color: black;
+    font-weight: bold;
+}
+
+.method{
+    color: blue;
+}
+
+.statusCode{
+    color: black;
+    font-weight: bold;
+}
+
+.table--fixed th, .table--fixed td {
+    padding: 8px;
+}
+
+.red{
+    color:red;
+}
+
+
+#sidebar{
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+}
+
+ul.list li{
+    text-indent: -1em;
+}
+
+.number{
+    font-size: 12px;
+}
+
+ul.list > li > ul {
+    display: none;
+}
+
+ul.list {
+    list-style: none;
+}
+
+#content{
+    padding: 40px;
+}
+
+.collapseReferences{
+    margin-bottom: 10px;
+
+}
+
+.main label{
+    font-weight: bold;
+}
+
+#naviOverlay{
+    background: #3c3c3c;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    padding: 0;
+    opacity: 0.5;
+    top:0;
+    left:0;
+
+}
+
+#testAreaOrdered {
+    position: relative;
+}
+
+.text-violet{
+  color: violet;
+}
+
+pre span.line {
+  counter-increment: line;
+}
+pre span.line:before {
+  
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #888;
+  text-align: left;
+  float: left;
+
+}
+
+*[id]:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -110px; 
+  height: 110px; 
+  visibility: hidden; 
+}

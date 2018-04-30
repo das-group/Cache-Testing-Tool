@@ -1,0 +1,59 @@
+# Security>Attack vectors>
+
+## 7.5.1 Attack vectors: Set-Cookie Attack, max-age=70
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=70;sc:random'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=70'
+
+## 7.5.2 Attack vectors: Set-Cookie Attack, s-maxage=70
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=70;sc:random'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=70'
+
+## 7.5.3 Attack vectors: Set-Cookie Attack, expires in 70 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:70;sc:random'
+GET /rsc -c 'ac:application/json' -s 'exp:70'
+
+## 7.5.4 Attack vectors: Web Deception Attack Test 1, no-store
+GET /rsc.png -c 'ac:image/png' -s 'cc:no-store'
+GET /rsc.png -c 'ac:image/png' -s 'cc:no-store'
+
+## 7.5.5 Attack vectors: Web Deception Attack Test 2, max-age=0
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0'
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0'
+
+## 7.5.6 Attack vectors: Web Deception Attack Test 3, s-maxage=0
+GET /rsc.png -c 'ac:image/png' -s 'cc:s-maxage=0'
+GET /rsc.png -c 'ac:image/png' -s 'cc:s-maxage=0'
+
+## 7.5.7 Attack vectors: Web Deception Attack Test 4, expires 5 seconds before
+GET /rsc.png -c 'ac:image/png' -s 'exp:-5'
+GET /rsc.png -c 'ac:image/png' -s 'exp:-5'
+
+## 7.5.8 Attack vectors: HTTP response splitting
+GET /rsc -c 'ac:text/html' -s 'rs:\r\n<html><body>First Body</body></html>\r\nHTTP 1.1 200 Ok\r\nContent-Type: text/html\r\n<html><body>Poisioned Body</body></html>' 'exp:-5'
+GET /rsc -c 'ac:text/html' 'exp:-5'
+
+## 7.5.9 Attack vectors: HTTP response splitting
+GET /rsc -c 'ac:text/html' -s 'rs:%0d%0a%0a%3Chtml%3E%3Cbody%3EFirst Body%3C/body%3E%3C/html%3E%0d%0a%0d%0aHTTP/1.1 200 OK%0d%0aContent-Type: text/html%0d%0a%0d%0a%3Chtml%3E%3Cbody%3EPosioned Body%3C/body%3E%3C/html%3E' 'exp:-5'
+GET /rsc -c 'ac:text/html' 'exp:-5'
+
+## 7.5.10 Attack vectors: HTTP response splitting
+GET /rsc -c 'ac:text/html;rs:1'
+GET /rsc -c 'ac:text/html'
+
+## 7.5.11 Attack vectors: HTTP request smuggeling
+GET /rsc -c 'ac:application/json;reqsmug:1'
+POST /rsc -c 'ac:application/json;reqsmug:1'
+PUT /rsc -c 'ac:application/json;reqsmug:1'
+DELETE /rsc -c 'ac:application/json;reqsmug:1'
+PATCH /rsc -c 'ac:application/json;reqsmug:1'
+OPTIONS /rsc -c 'ac:application/json;reqsmug:1'
+
+## 7.5.12 Attack vectors: HTTP request smuggeling
+GET /rsc -c 'ac:application/json;reqsmug:2'
+POST /rsc -c 'ac:application/json;reqsmug:2'
+PUT /rsc -c 'ac:application/json;reqsmug:2'
+DELETE /rsc -c 'ac:application/json;reqsmug:2'
+PATCH /rsc -c 'ac:application/json;reqsmug:2'
+OPTIONS /rsc -c 'ac:application/json;reqsmug:2'
+
+# Security>Attack vectors>

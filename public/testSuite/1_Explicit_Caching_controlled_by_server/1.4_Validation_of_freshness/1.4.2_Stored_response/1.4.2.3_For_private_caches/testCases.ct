@@ -1,0 +1,35 @@
+# Explicit Caching controlled by server>Validation of freshness>Stored response>For private caches>
+
+## 1.4.2.3.1 Validating stored response: no-cache and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;et:123' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.2 Validating stored response: no-cache but without ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache'
+
+## 1.4.2.3.3 Validating stored response: no-cache and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;lm:-3600' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.4 Validating stored response: no-cache="X-Id" and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache="X-Id";et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache="X-Id";et:123' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.5 Validating stored response: no-cache="X-Id" and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache="X-Id";lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache="X-Id";lm:-3600' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.6 Validating stored response: no-cache, max-age=10 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,max-age=10,no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,max-age=10,no-cache;et:123' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.7 Validating stored response: no-cache, s-maxage=10 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,s-maxage=10,no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,s-maxage=10,no-cache;et:123' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+## 1.4.2.3.8 Validating stored response: no-cache, s-maxage=10 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;et:123;exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:private,no-cache;et:123;exp:10' -e 'cb:true;st:200' -e 'ch:false;st:200'
+
+# Explicit Caching controlled by server>Validation of freshness>Stored response>For private caches>

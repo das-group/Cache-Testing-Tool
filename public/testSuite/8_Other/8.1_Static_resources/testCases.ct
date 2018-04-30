@@ -1,0 +1,51 @@
+# Other>Static resources>
+
+## 8.1.1 Static resources: text/css and no-store
+GET /rsc.css -c 'ac:text/css' -s 'cc:no-store' -e 'ch:false;st:200'
+GET /rsc.css -c 'ac:text/css' -s 'cc:no-store' -e 'ch:false;st:200'
+
+## 8.1.2 Static resources: text/css and max-age=0
+GET /rsc.css -c 'ac:text/css' -s 'cc:max-age=0' -e 'ch:false;st:200'
+GET /rsc.css -c 'ac:text/css' -s 'cc:max-age=0' -e 'ch:false;st:200'
+
+## 8.1.3 Static resources: text/css and s-maxage=0
+GET /rsc.css -c 'ac:text/css' -s 'cc:s-maxage=0' -e 'ch:false;st:200'
+GET /rsc.css -c 'ac:text/css' -s 'cc:s-maxage=0' -e 'ch:false;st:200'
+
+## 8.1.4 Static resources: text/css and Expires 10 seconds before
+GET /rsc.css -c 'ac:text/css' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc.css -c 'ac:text/css' -s 'exp:-10' -e 'ch:false;st:200'
+
+## 8.1.5 Static resources: text/css, max-age=0 and Expires in 10 seconds
+GET /rsc.css -c 'ac:text/css' -s 'cc:max-age=0,exp=10' -e 'ch:false;st:200'
+GET /rsc.css -c 'ac:text/css' -s 'cc:max-age=0,exp=10' -e 'ch:false;st:200'
+
+## 8.1.6 Static resources: image/png, max-age=15, s-maxage=0 and Expires in 10 seconds
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=15,s-maxage=0,exp=10' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=15,s-maxage=0,exp=10' -e 'ch:false;st:200' -ep 'ch:true;st:200'
+
+## 8.1.7 Static resources: image/png and no-store
+GET /rsc.png -c 'ac:image/png' -s 'cc:no-store' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:no-store' -e 'ch:false;st:200'
+
+## 8.1.8 Static resources: image/png and max-age=0
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 8.1.9 Static resources: image/png and s-maxage=0
+GET /rsc.png -c 'ac:image/png' -s 'cc:s-maxage=0' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:s-maxage=0' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 8.1.10 Static resources: image/png and Expires 10 seconds before
+GET /rsc.png -c 'ac:image/png' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'exp:-10' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 8.1.11 Static resources: image/png, max-age=0 and Expires in 10 seconds
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0,exp=10' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=0,exp=10' -e 'ch:false;st:200' -ep 'cb:true;st:200'
+
+## 8.1.12 Static resources: image/png, max-age=15, s-maxage=0 and Expires in 10 seconds
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=15,s-maxage=0,exp=10' -e 'ch:false;st:200'
+GET /rsc.png -c 'ac:image/png' -s 'cc:max-age=15,s-maxage=0,exp=10' -e 'ch:false;st:200' -ep 'ch:true;st:200'
+
+# Other>Static resources>

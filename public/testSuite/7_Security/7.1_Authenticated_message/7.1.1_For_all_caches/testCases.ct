@@ -1,0 +1,68 @@
+# Security>Authenticated message>For all caches>
+
+## 7.1.1.1 Authenticated message: Authorization header but no freshness lifetime
+GET /rsc -c 'ac:application/json;az:basic secret' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;az:basic secret' -e 'ch:false;st:200'
+
+## 7.1.1.2 Authenticated message: Authorization header and max-age=5
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=5' -e 'ch:true;st:200'
+
+## 7.1.1.3 Authenticated message: Authorization header and s-maxage=5
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:s-maxage=5' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 7.1.1.4 Authenticated message: Authorization header and Expires in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.5 Authenticated message: Authorization header, max-age=10 and Expires in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.6 Authenticated message: Authorization header, s-maxage=10 and Expires in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:s-maxage=10;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.7 Authenticated message: Authorization header, max-age=10, s-maxage=20 and Expires in 5 seconds
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.8 Authenticated message: Authorization header, public but no freshness lifetime
+GET /rsc -c 'ac:application/json;az:basic secret' -s 'cc:public' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;az:basic secret' -e 'ch:false;st:200'
+
+## 7.1.1.9 Authenticated message: Authorization header and max-age=5 and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=5' -e 'ch:true;st:200'
+
+## 7.1.1.10 Authenticated message: Authorization header s-maxage=5 and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,s-maxage=5' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 7.1.1.11 Authenticated message: Authorization header Expires in 5 seconds and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.12 Authenticated message: Authorization header, max-age=10 and Expires in 5 seconds and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=10;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.13 Authenticated message: Authorization header, s-maxage=10 and Expires in 5 seconds and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,s-maxage=10;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,s-maxage=10;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.14 Authenticated message: Authorization header, max-age=10, s-maxage=20 and Expires in 5 seconds and public
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:public,max-age=10,s-maxage=20;exp:5' -e 'ch:true;st:200'
+
+## 7.1.1.15 Authenticated message: Get to be authenticated stored response without Authorization header
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -s 'cc:max-age=5' -e 'ch:false;st:200'
+
+## 7.1.1.16 Authenticated message: Protect to be authenticated stored response with Vary header
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10;va:Authorization' -e 'ch:false;st:200'
+GET /rsc -s 'cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'az:basic secret;ac:application/json' -s 'cc:max-age=10;va:Authorization' -e 'ch:true;st:200'
+
+# Security>Authenticated message>For all caches>

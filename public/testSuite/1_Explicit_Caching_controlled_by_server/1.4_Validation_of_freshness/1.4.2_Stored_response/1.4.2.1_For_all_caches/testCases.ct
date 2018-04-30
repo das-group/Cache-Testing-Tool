@@ -1,0 +1,39 @@
+# Explicit Caching controlled by server>Validation of freshness>Stored response>For all caches>
+
+## 1.4.2.1.1 Validating stored response: no-cache and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;et:123' -e 'cb:true;st:200'
+
+## 1.4.2.1.2 Validating stored response: no-cache but no ETag
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache' -e 'cb:true;st:200'
+
+## 1.4.2.1.3 Validating stored response: no-cache and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;lm:-3600' -e 'cb:true;st:200'
+
+## 1.4.2.1.4 Validating stored response: no-cache and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;lm:-3600;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;lm:-3600;et:123' -e 'cb:true;st:200'
+
+## 1.4.2.1.5 Explicit caching: no-cache="X-Id" and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache="X-Id";et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache="X-Id";et:123' -e 'cb:true;st:200'
+
+## 1.4.2.1.6 Explicit caching: no-cache="X-Id" and Last-Modified one hour before
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache="X-Id";lm:-3600' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache="X-Id";lm:-3600' -e 'cb:true;st:200'
+
+## 1.4.2.1.7 Validating stored response: no-cache, max-age=10 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,no-cache;et:123' -e 'cb:true;st:200'
+
+## 1.4.2.1.8 Validating stored response: no-cache, s-maxage=10 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,no-cache;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,no-cache;et:123' -e 'cb:true;st:200'
+
+## 1.4.2.1.9 Validating stored response: no-cache, Expires in 10 seconds and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;et:123;exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:no-cache;et:123;exp:10' -e 'cb:true;st:200'
+
+# Explicit Caching controlled by server>Validation of freshness>Stored response>For all caches>

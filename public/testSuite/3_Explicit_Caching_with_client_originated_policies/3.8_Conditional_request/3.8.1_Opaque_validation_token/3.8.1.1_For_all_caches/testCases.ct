@@ -1,0 +1,40 @@
+# Explicit Caching with client originated policies>Conditional request>Opaque validation token>For all caches>
+
+## 3.8.1.1.1 Conditional request: If-None-Match with ETag
+GET /rsc -c 'ac:application/json' -s 'et:"123"' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123"' -e 'cb:true;st:304'
+
+## 3.8.1.1.2 Conditional request: If-None-Match multiple ETags, match with cache's ETags
+GET /rsc -c 'ac:application/json' -s 'et:"123"' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:"123","345"' -s 'et:"345"' -e 'cb:true;st:304'
+
+## 3.8.1.1.3 Conditional request: If-None-Match multiple ETags, none-match with cache's ETags
+GET /rsc -c 'ac:application/json' -s 'et:"123"' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'et:"345"' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:111,222' -s 'et:789'
+
+## 3.8.1.1.4 Conditional request: If-None-Match with ETag and max-age=5
+GET /rsc -c 'ac:application/json' -s 'et:"123";cc:max-age=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:max-age=5'
+
+## 3.8.1.1.5 Conditional request: If-None-Match with ETag and s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'et:"123";cc:s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:s-maxage=5'
+
+## 3.8.1.1.6 Conditional request: If-None-Match with ETag and Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'et:"123";exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:s-maxage=5'
+
+## 3.8.1.1.7 Conditional request: If-None-Match with ETag and max-age=5, s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'et:"123";cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:max-age=5,s-maxage=10'
+
+## 3.8.1.1.8 Conditional request: If-None-Match with ETag and max-age=5 and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'et:"123";cc:max-age=5;exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:max-age=5;exp:10'
+
+## 3.8.1.1.9 Conditional request: If-None-Match with ETag and max-age=5, s-maxage=15 and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'et:"123";cc:max-age=5,s-maxage=10;exp=10'
+GET /rsc -c 'ac:application/json;inm:123' -s 'et:"123";cc:max-age=5,s-maxage=10;exp=10'
+
+# Explicit Caching with client originated policies>Conditional request>Opaque validation token>For all caches>

@@ -1,0 +1,31 @@
+# Explicit Caching with client originated policies>Validation of freshness>For all caches>
+
+## 3.4.1.1 Validation: Server max-age=5 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5;et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'cc:max-age=5;et:123' -e 'cb:true;st:200'
+
+## 3.4.1.2 Validation: Server ETag but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'et:123' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'et:123' -e 'cb:true;st:200'
+
+## 3.4.1.3 Validation: Server max-age=5 and Last-Modified
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5;lm:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'cc:max-age=5;lm:-10' -e 'ch:false;st:200'
+
+## 3.4.1.4 Validation: Server ETag but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'lm:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'lm:-10' -e 'ch:false;st:200'
+
+## 3.4.1.5 Validation: Server max-age=5 and Last-Modified
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5;et:123;lm:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'cc:max-age=5;et:123;lm:-10' -e 'cb:true;st:200'
+
+## 3.4.1.6 Validation: Server ETag but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'et:123;lm:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -s 'et:123;lm:-10' -e 'cb:true;st:200'
+
+## 3.4.1.7 Validation: Server no freshness lifetime and no validation token
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:no-cache' -e 'ch:false;st:200'
+
+# Explicit Caching with client originated policies>Validation of freshness>For all caches>

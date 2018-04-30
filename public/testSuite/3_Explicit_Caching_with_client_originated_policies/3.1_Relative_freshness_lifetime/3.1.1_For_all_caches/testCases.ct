@@ -1,0 +1,212 @@
+# Explicit Caching with client originated policies>Relative freshness lifetime>For all caches>
+
+## 3.1.1.1 Client-originated policies: Client max-age=10; Server max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:max-age=10' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 3.1.1.2 Client-originated policies: Client max-age=0; Server max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=0;ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 3.1.1.3 Client-originated policies: Client max-age=10; Server max-age=-10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=-10;ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+
+## 3.1.1.4 Client-originated policies: Client max-age=10; Server s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:s-maxage=10' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.5 Client-originated policies: Client max-age=0; Server s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=0;ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.6 Client-originated policies: Client max-age=-10; Server s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=-10;ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.7 Client-originated policies: Client max-age=10; Server max-age=10 and s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:max-age=5,s-maxage=20' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'cc:max-age=5,s-maxage=20' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 3.1.1.8 Client-originated policies: Client max-age=0; Server max-age=5 and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=0;ac:application/json' -s 'cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.9 Client-originated policies: Client max-age=-10; Server max-age=5 and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=-10;ac:application/json' -s 'cc:max-age=5,s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.10 Client-originated policies: Client max-age=10;  Server Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'exp:5' -e 'ch:true;st:200'
+
+## 3.1.1.11 Client-originated policies: Client max-age=10; Server Expires 5 seconds before
+GET /rsc -c 'ac:application/json' -s 'exp:-5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=10;ac:application/json' -s 'exp:-5' -e 'ch:false;st:200'
+
+## 3.1.1.12 Client-originated policies: Client max-age=-10; Server Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-age=-10;ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+
+## 3.1.1.13 Client-originated policies: Client max-age=10; Server no freshness lifetime
+GET /rsc -c 'ac:application/json' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;cc:max-age=10' -e 'ch:true;st:200'
+
+## 3.1.1.14 Client-originated policies: Client max-stale=10; Server max-age=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:max-age=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+
+## 3.1.1.15 Client-originated policies: Client max-stale=0; Server max-age=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=0;ac:application/json' -s 'cc:max-age=5' -e 'ch:false;st:200'
+
+## 3.1.1.16 Client-originated policies: Client max-stale without value; Server max-age=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'cc:max-age=5' -e 'ch:true;st:200'
+
+## 3.1.1.17 Client-originated policies: Client max-stale=-10; Server max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac:application/json' -s 'cc:max-age=10'
+
+## 3.1.1.18 Client-originated policies: Client max-stale=10; Server s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:s-maxage=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+
+## 3.1.1.19 Client-originated policies: Client max-stale=0; Server s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=0;ac:application/json' -s 'cc:s-maxage=5' -e 'ch:false;st:200'
+
+## 3.1.1.20 Client-originated policies: Client max-stale without value; s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'cc:s-maxage=5' -e 'ch:true;st:200'
+
+## 3.1.1.21 Client-originated policies: Client max-stale=-10; Server s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+
+## 3.1.1.22 Client-originated policies: Client max-stale=10; Server max-age=10 and s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -e 'ch:false;st:200' -ep 'ch:true;st:200'
+
+## 3.1.1.23 Client-originated policies: Client max-stale=0; Server max-age=10 and s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=0;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -e 'ch:false;st:200'
+
+## 3.1.1.24 Client-originated policies: Client max-stale without value; Server max-age=10 and s-maxage=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -e 'ch:true;st:200'
+
+## 3.1.1.25 Client-originated policies: Client max-stale=-10; Server max-age=5 and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac:application/json' -s 'cc:max-age=10,s-maxage=5' -e 'ch:false;st:200'
+
+## 3.1.1.26 Client-originated policies: Client max-stale=10; Server Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=10;ac:application/json' -s 'exp:5' -e 'ch:true;st:200'
+
+## 3.1.1.27 Client-originated policies: Client max-stale=10; Server Expires 5 seconds before
+GET /rsc -c 'ac:application/json' -s 'exp:-5' -e 'ch:false;st:200'
+GET /rsc -c 'ac:max-stale=10;ac:application/json' -s 'exp:-5' -e 'ch:true;st:200'
+
+## 3.1.1.28 Client-originated policies: Client max-stale without value; Server Expires in 5 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:5' -p 10 -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'exp:5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'exp:5' -e 'ch:true;st:200'
+
+## 3.1.1.29 Client-originated policies: Client max-stale without value; Server Expires 5 seconds before
+GET /rsc -c 'ac:application/json' -s 'exp:-5' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'exp:-5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:max-stale;ac:application/json' -s 'exp:-5' -e 'ch:true;st:200'
+
+## 3.1.1.30 Client-originated policies: Client max-stale=-10; Server Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac=application/json' -s 'exp:10'
+
+## 3.1.1.31 Client-originated policies: Client max-stale=10; Server no freshness lifetime
+GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac:application/json'
+
+## 3.1.1.32 Client-originated policies: Client max-stale=-10; Server Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'cc:max-stale=-10;ac:application/json' -s 'cc:max-age=10'
+
+## 3.1.1.33 Client-originated policies: Client min-fresh=10; Server max-age=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:max-age=20' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:max-age=20' -e 'ch:true;st:200'
+
+## 3.1.1.34 Client-originated policies: Client  min-fresh=0; Server max-age=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=0;ac:application/json' -s 'cc:max-age=20' -e 'ch:true;st:200'
+
+## 3.1.1.35 Client-originated policies: Client min-fresh=1000; Server max-age=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=1000;ac:application/json' -s 'cc:max-age=20' -e 'ch:false;st:200'
+
+## 3.1.1.36 Client-originated policies: Client min-fresh=-10; Server max-age=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=20' -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=-10;ac:application/json' -s 'cc:max-age=20' -e 'ch:false;st:200'
+
+## 3.1.1.37 Client-originated policies: Client min-fresh=10; Server s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:s-maxage=20' -p 10 -e 'ch:true;st:200' -ep 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.38 Client-originated policies: Client min-fresh=0; Server s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=0;ac:application/json' -s 'cc:s-maxage=20' -e 'ch:true;st:200'
+
+## 3.1.1.39 Client-originated policies: Client min-fresh=1000; Server s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=1000;ac:application/json' -s 'cc:s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.40 Client-originated policies: Client min-fresh=-10; Server s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=20' -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=-10;ac:application/json' -s 'cc:s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.41 Client-originated policies: Client min-fresh=10; Server max-age=10 s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:max-age=10,s-maxage=20' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'cc:max-age=10,s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.42 Client-originated policies: Client min-fresh=0; Server max-age=10 s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=0;ac:application/json' -s 'cc:max-age=10,s-maxage=20' -e 'ch:true;st:200'
+
+## 3.1.1.43 Client-originated policies: Client min-fresh=1000; Server max-age=10 s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=1000;ac:application/json' -s 'cc:max-age=10,s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.44 Client-originated policies: Client min-fresh=-10; Server max-age=10 s-maxage=20
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20' -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=-10;ac:application/json' -s 'cc:max-age=10,s-maxage=20' -e 'ch:false;st:200'
+
+## 3.1.1.45 Client-originated policies: Client min-fresh=10; Server Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'exp:20' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'cc:min-fresh=10;ac:application/json' -s 'exp:20' -e 'ch:false;st:200'
+
+## 3.1.1.46 Client-originated policies: Client min-fresh=0; Server Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=0;ac:application/json' -s 'exp:20' -e 'ch:true;st:200'
+
+## 3.1.1.47 Client-originated policies: Client min-fresh=1000; Server Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:20' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=1000;ac:application/json' -s 'exp:20' -e 'ch:false;st:200'
+
+## 3.1.1.48 Client-originated policies: Client min-fresh=-10; Server Expires in 20 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:20' -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=-10;ac:application/json' -s 'exp:20' -e 'ch:false;st:200'
+
+## 3.1.1.49 Client-originated policies: Client min-fresh=10; Server no freshness lifetime
+GET /rsc -c 'ac:application/json' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'cc:min-fresh=1000;ac:application/json' -e 'ch:false;st:200'
+
+# Explicit Caching with client originated policies>Relative freshness lifetime>For all caches>

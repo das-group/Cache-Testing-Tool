@@ -1,0 +1,81 @@
+# Other>Extensions>
+
+## 8.2.1 Extensions: max-age=10, stale-while-revalidate=5 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:false;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -e 'ch:true;st:200'
+
+## 8.2.2 Extensions: s-maxage=10 and stale-while-revalidate=5
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10, stale-while-revalidate=5;et:123' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:true;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:false;st:200' -ep 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10, stale-while-revalidate=5;et:123' -e 'ch:true;st:200' -ep 'cb:true;st:200'
+
+## 8.2.3 Extensions: Expires in 10 seconds and stale-while-revalidate=5
+GET /rsc -c 'ac:application/json' -s 'exp:10, stale-while-revalidate=5;et:123' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10, stale-while-revalidate=5;et:123' -p 5 -e 'cb:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10, stale-while-revalidate=5;et:123' -e 'cb:true;st:200'
+
+## 8.2.4 Extensions: max-age=10 and stale-while-revalidate without value
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate;et:123' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate;et:123' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate;et:123' -p 5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate;et:123'
+
+## 8.2.5 Extensions: max-age=10, stale-while-revalidate=5 and ETag
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123;st:500'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5;et:123;st:500'
+
+## 8.2.6 Extensions: max-age=5 and stale-if-error=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5, stale-if-error=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'st:500' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'st:500' -e 'ch:false;st:500'
+
+## 8.2.7 Extensions: s-maxage=5 and stale-if-error=5
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=5, stale-if-error=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'st:500' -e 'ch:true;st:200' -ep 'ch:false;st:200'
+
+## 8.2.8 Extensions: Expires in 5 seconds and stale-if-error=5
+GET /rsc -c 'ac:application/json' -s 'exp:5, stale-if-error=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'st:500' -e 'ch:true;st:200'
+
+## 8.2.9 Extensions: max-age=5 and stale-if-error without value
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=5, stale-if-error' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'st:500'
+
+## 8.2.10 Extensions: max-age=10 and stale-while-revalidate=5 and stale-if-error=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5, stale-if-error=5' -p 7 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5, stale-if-error=5' -p 5 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10, stale-while-revalidate=5, stale-if-error=5' -e 'ch:false;st:200'
+
+## 8.2.11 Extensions: max-age=10, must-revalidate and stale-while-revalidate=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123,stale-while-revalidate=5' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123,stale-while-revalidate=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;et:123;st:500' -e 'ch:false;st:500'
+
+## 8.2.12 Extensions: max-age=10, must-revalidate, stale-if-error=5 and stale-while-revalidate=5
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123,stale-if-error=5,stale-while-revalidate=5' -p 5 -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,must-revalidate;et:123,stale-if-error=5,stale-while-revalidate=5' -p 10 -e 'ch:true;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10;et:123;st:500' -e 'ch:false;st:500'
+
+## 8.2.13 Extensions: immutable but no freshness lifetime
+GET /rsc -c 'ac:application/json' -s 'cc:immutable' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:immutable' -e 'ch:true;st:200'
+
+## 8.2.14 Exntensions: immutable and max-age=10
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,immutable' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,immutable' -e 'ch:true;st:200'
+
+## 8.2.15 Exntensions: immutable and s-maxage=10
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,immutable' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10,immutable' -e 'ch:true;st:200'
+
+## 8.2.16 Exntensions: immutable and Expires in 10 seconds
+GET /rsc -c 'ac:application/json' -s 'exp:10,immutable' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:10,immutable' -e 'ch:true;st:200'
+
+# Other>Extensions>
