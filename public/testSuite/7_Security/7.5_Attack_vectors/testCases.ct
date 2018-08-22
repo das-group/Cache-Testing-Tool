@@ -56,4 +56,7 @@ DELETE /rsc -c 'ac:application/json;reqsmug:2'
 PATCH /rsc -c 'ac:application/json;reqsmug:2'
 OPTIONS /rsc -c 'ac:application/json;reqsmug:2'
 
+## 7.5.13 Attack vectors: Host of Trouble
+GET /rsc -c 'ac:application/json;hot:1'
+
 # Security>Attack vectors>

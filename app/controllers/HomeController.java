@@ -44,6 +44,16 @@ public class HomeController extends Controller {
         return ok(testSuite.render(""));
     }
 
+    public Result add(){
+        String body = request().body().asText();
+        return ok(body);
+    }
+
+    public Result res(){
+        String query = request().getQueryString("a");
+        response().setHeader("X-Header",query);
+        return ok(query);
+    }
 
 
 

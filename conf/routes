@@ -6,6 +6,8 @@
 GET     /                           controllers.HomeController.index
 GET     /cachetester                controllers.HomeController.cacheTester
 GET     /testsuite                  controllers.HomeController.getTestSuite
+POST    /add                        controllers.HomeController.add
+GET     /res                        controllers.HomeController.res
 
 # WebSocket
 GET		/socket						controllers.HomeController.socket

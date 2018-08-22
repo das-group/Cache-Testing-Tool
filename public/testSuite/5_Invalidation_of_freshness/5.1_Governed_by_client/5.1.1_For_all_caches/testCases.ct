@@ -1,6 +1,6 @@
 # Invalidation of freshness>Governed by client>For all caches>
 
-## 5.1.1.1 Invalidation: POST and without freshness lifetime definition
+## 5.1.1.1 Invalidation: POST and without freshness lifetime
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
 POST /rsc -c 'ac:application/json' -e 'ch:false;st:201'
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
@@ -35,7 +35,7 @@ GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:fa
 POST /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:201'
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
 
-## 5.1.1.8 Invalidation: PUT but freshness lifetime
+## 5.1.1.8 Invalidation: PUT without freshness lifetime
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
 PUT /rsc -c 'ac:application/json' -e 'ch:false;st:204'
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
@@ -70,7 +70,7 @@ GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:fa
 PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:204'
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
 
-## 5.1.1.15 Invalidation: DELETE but no freshness lifetime
+## 5.1.1.15 Invalidation: DELETE without freshness lifetime
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
 DELETE /rsc -c 'ac:application/json' -e 'ch:false;st:204'
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
@@ -105,7 +105,7 @@ GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:fa
 DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -p 15 -e 'ch:false;st:204'
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:false;st:200'
 
-## 5.1.1.22 Invalidation: PATCH but no freshness lifetime
+## 5.1.1.22 Invalidation: PATCH without freshness lifetime
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
 PATCH /rsc -c 'ac:application/json' -e 'ch:false;st:204'
 GET /rsc -c 'ac:application/json' -e 'ch:false;st:200'
@@ -143,61 +143,61 @@ GET /rsc -c 'ac:application/json' -s 'cc:max-age=10,s-maxage=20;exp:5' -e 'ch:fa
 ## 5.1.1.29 Invalidation: POST, max-age=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
 POST /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:true;st:200'
 
 ## 5.1.1.30 Invalidation: PUT, max-age=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
 PUT /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:true;st:200'
 
 ## 5.1.1.31 Invalidation: DELETE, max-age=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
 DELETE /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:true;st:200'
 
 ## 5.1.1.32 Invalidation: PATCH, max-age=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
 PATCH /rsc -c 'ac:application/json' -s 'cc:max-age=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=10' -e 'ch:true;st:200'
 
 ## 5.1.1.33 Invalidation: POST, s-maxage=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
 POST /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:true;st:200'
 
 ## 5.1.1.34 Invalidation: PUT, s-maxage=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
 PUT /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:true;st:200'
 
 ## 5.1.1.35 Invalidation: DELETE, s-maxage=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
 DELETE /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:true;st:200'
 
 ## 5.1.1.36 Invalidation: PATCH, s-maxage=10 and status code 400
 GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
 PATCH /rsc -c 'ac:application/json' -s 'cc:s-maxage=10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:s-maxage=10' -e 'ch:true;st:200'
 
 ## 5.1.1.37 Invalidation: POST, Expires in 10 seconds before and status code 400
 GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
 POST /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:true;st:200'
 
 ## 5.1.1.38 Invalidation PUT, Expires 10 seconds before and status code 400
 GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
 PUT /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:true;st:200'
 
 ## 5.1.1.39 Invalidation: DELETE, Expires 10 seconds before and status code 400
 GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
 DELETE /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:true;st:200'
 
 ## 5.1.1.40 Invalidation: PATCH, Expires 10 seconds before and status code 400
 GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
 PATCH /rsc -c 'ac:application/json' -s 'exp:-10;st:400' -e 'ch:false;st:400'
-GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'exp:-10' -e 'ch:true;st:200'
 
 # Invalidation of freshness>Governed by client>For all caches>

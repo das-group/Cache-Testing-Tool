@@ -169,19 +169,20 @@ function Result() {
 
             requestResponseDefinition.response.compliance.compliance = step.validated.ok;
 
-            if(step.validated.ch.received == false && step.validated.ch.expection == true && step.validated.cb.received == false && step.validated.cb.expection == false){
+            if(step.validated.ch.received == false && step.validated.ch.expection == true){
                 requestResponseDefinition.response.compliance.errors.push("Response must be a cache hit");
-			} else if(step.validated.ch.received == true && step.validated.ch.expection == false && step.validated.cb.received == false && step.validated.cb.expection == false){
+			} else if(step.validated.ch.received == true && step.validated.ch.expection == false){
                 requestResponseDefinition.response.compliance.errors.push("Response must not be a cache hit");
 			} else if(step.validated.cb.received == true && step.validated.cb.expection == false && step.validated.ch.received == false && step.validated.ch.expection == false){
                 requestResponseDefinition.response.compliance.errors.push("Cached response must not have an updated header");
 			} else if(step.validated.cb.received == false && step.validated.cb.expection == true && tep.validated.ch.received == false && step.validated.ch.expection == false){
                 requestResponseDefinition.response.compliance.errors.push("Cached response must have an updated header");
 			} else if(step.validated.cb.expection == true && step.validated.ch.received == true){
-                equestResponseDefinition.response.compliance.errors.push("Cached response must have an updated header");
+                requestResponseDefinition.response.compliance.errors.push("Cached response must have an updated header");
 			}
 
-			if(step.validated.st.expection != step.validated.st.validated){
+			if(step.validated.st.expection != step.validated.st.received){
+
                 requestResponseDefinition.response.compliance.errors.push("Wrong status code");
 			}
 
@@ -404,6 +405,7 @@ function Result() {
 
 			for(var key in expection) {
 				var current = step.validated[key];
+				console.log(current);
 				if(current.expection == current.received) {
 					current.ok = true;
 				} else {
