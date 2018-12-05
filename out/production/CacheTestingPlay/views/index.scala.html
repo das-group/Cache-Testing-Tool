@@ -1,0 +1,194 @@
+@main("Cache tester") {
+    <div class="container main">
+        <h1>Welcome</h1>
+        <p class="text-justify">
+            Caching has been established as a vital mechanism for providing high scalability in modern distributed software systems.
+            In the web, the storage and reuse of frequently asked responses represent the formula of success ever since.
+            Therefore, the IETF has published a web caching standard, the RFC 7234, providing policies and control directives for all kinds of web caching systems.
+            The non-compliance to this standard may incude scalability, security and privacy issues, as it has been shown by set of publications.
+        </p>
+        <p class="text-justify">
+            This cache test tool is the first toolset designed for testing caches.
+            This test tool can be used to analyze various caching systems including <a href="/cachetester?cacheType=browser">browser caches</a>,
+            <a href="/cachetester">(forward/backend) proxy caches or CDNs.</a>
+            Moreover, we proposed a cache <a href="/testsuite">test suite</a> which comprise a structured test case collection.
+            This test suite contains a bunch of test cases with which you can analyze your web caching system.
+        </p>
+        <hr>
+        <h2>Get started</h2>
+        <p>
+            In order to make our collection of test cases easily adoptable we developed a universal test environment providing
+            a simple command language that allows to use as well as extend our base test suite in a straightforward manner.
+            We provide the cache test tool containing the 397 test cases as free software.
+        </p>
+        <h3>Cache test tool architecture</h3>
+        <p class="text-justify">
+            The Figure below shows the architecture of our cache test system.
+            We designed it as functional black box test with the main test objective being the cache.
+            To support as many caching system types as feasible,
+            the architecture consists of a test server (<a href="https://github.com/DASCologne/cachetestservernode" target="_blank">https://github.com/DASCologne/cachetestservernode</a>) which is accessed and controlled by the test client.
+            Both endpoints need to be under control of the test environment.
+            By constructing specific sequences for message flows, the behavior of the caching system can be examined.
+            The proposed architecture enables to explore caches inside client applications as well as caches residing
+            in the cloud as part of forward or reverse proxies and content delivery networks.
+
+        </p>
+        <figure class="figure" id="figure1">
+            <img src="/assets/images/CacheTestTool.png" width="1000" class="figure-img img-fluid rounded" alt="Architecture of universal cache test system">
+            <figcaption class="figure-caption">Figure 1: Architecture of universal cache test system</figcaption>
+        </figure>
+        <p class="text-justify">
+            We realized the test client as a web application which consists of a frontend where the test vectors
+            can be defined and a backend which executes the requests as well as evaluates the returning responses.
+            The frontend provides an user interface which requires two mandatory input arguments:
+            the target host and a set of test cases defined by our test case syntax.
+            For reverse proxy cache tests, the target host must be the IP or host name of the cache.
+            Also, the reverse proxy must be set to redirect all requests to the cache test server.
+            If a user intends to analyze a forward proxy cache,
+            she must provide the host name of the cache test server as well as the host name of the forward proxy.
+            Web browser cache tests only require the IP or host name of the cache test server as cache is inside the client application.
+            <br>
+            The test procedure starts by transferring the provided test cases to the backend,
+            where each test case is processed sequentially and converted into a corresponding request.
+            This is done by a request processor inside the backend.
+            This request processor converts the request/response definitions to
+            requests according to test case syntax and sends them to the web caching system.
+            The requests contain specific meta information in order to unambiguously distinguish whether a response
+            is originated by the tested cache or the test server.
+            Moreover, the command language designed to specify the test cases includes an option to defined the
+            expected response---e.g. in terms of <a href="https://tools.ietf.org/html/rfc7234" target="_blank">RFC 7234</a>.
+            By this the frontend can compare the obtained response with the expected response to automatically generate a test report.
+        </p>
+        <h3>Test case syntax</h3>
+        <p class="text-justify">
+            The syntax of our proposed test case definition language is based on the command line tool <a href="https://curl.haxx.se/" target="_blank">curl</a>.
+            Each test case contains a descriptive title and is composed of one or multiple commands (see Listing below).
+        </p>
+<pre>
+<span class="line text-secondary">## Descriptive title of test case</span>
+<span class="line"><span class="text-primary">GET</span> <span class="text-violet">/rsc</span> -c <span class="text-warning">'Accept:application/json;Cache-Control:no-store'</span></span>
+         <span class="line">-s <span class="text-danger">'Cache-Control:max-age=10'</span></span>
+         <span class="line">-p 5</span>
+         <span class="line">-e <span class="text-success">'ch:false;st:200'</span></span>
+<span class="line"><span class="text-primary">GET</span> <span class="text-violet">/rsc</span> -c <span class="text-warning">'Accept:application/json' </span></span>
+         <span class="line">-s <span class="text-danger">'Cache-Control:max-age=10'</span></span>
+         <span class="line">-p 10</span>
+         <span class="line">-e <span class="text-success">'ch:true;st:200'</span></span>
+</pre>
+    <p class="text-justify">
+            Line 2 to 5 define the first command and the second one is specified from line 6 to 9.
+            Each command specifies a request and its expected response.
+            A request/response definition contains two mandatory and multiple optional arguments.
+            The first mandatory parameter in line 2 specifies the HTTP request method of the first request/response pair which is GET in this example.
+            The second mandatory parameter defines the targeted resource URL without the scheme and host.
+            Optionally, the test case syntax allows to add one or more header fields to the request.
+            This is done by the <var>-c</var> parameter flag.
+            The example add two header fields to the request: (1) the <var class="text-warning">Accept</var> header field with the value <var class="text-warning">application/json</var>
+            and (2) the <var class="text-warning">Cache-Control</var> header field containing the value <var class="text-warning">no-store</var>.
+            The header fields are separated from each other using the semicolon character as delimiter.
+            Accordingly, by means of the <var>-s</var> parameter flag a set of header fields can be specified that are added to the resulting response.
+            The <var>-p</var> parameter flag defines a pause in seconds which has to be waited before the test client executes the next command.
+            Breaks between requests are crucial for, e.g., analyzing the freshness lifetime of a response.
+            Additionally, the <var>-e</var> parameter flag describes the to be expected properties of the response.
+            These expected properties can be either requirements of the <a href="https://tools.ietf.org/html/rfc7234" target="_blank">RFC 7234</a> or requirements of the own caching policy.
+            If the resulting responses fulfill all expected properties, then this test case is considered as successful.
+            If a response does not embody one of the properties, than the web caching system may have a malfunction.
+            In the first request/response definition, the first expected property <var class="text-success">ch:false</var> (see Line 5)
+            assumes that the resulting result is new response created by origin server and not a stored one form the cache.
+            The second expected property <var class="text-success">st:200</var> requires that the resulting status code must be <var>200 Ok</var>.
+        </p>
+    <p class="text-justify">
+        The Table below depicts the request/response flow executed by the cache test tool following the example test case specifications shown in the above Listing.
+    </p>
+    <table class="table table-bordered 1524832814731">
+    <thead>
+        <tr class="table-active testCaseName">
+            <th>Descriptive title of test case</th>
+            <th>Response</th>
+            <th>Cache hit</th>
+            <th>Compliant</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="request10">
+            <td class="6a40aaf05b738f18 message request" rid="6a40aaf05b738f18"><span class="startLine" rid="6a40aaf05b738f18"><span class="method">GET</span> <span class="url">/rsc</span> <span class="protocol">HTTP/1.1</span></span> <span class="oi oi-caret-bottom toggleCollapse"></span>
+                <div class="collapse show">
+                    <span  class="text-warning"><strong>Accept</strong>: application/json</span>
+                    <br><span class="text-warning"><strong>Cache-Control</strong>: no-store</span>
+                    <br><span class="6a40aaf05b738f18 text-light bg-dark"><strong>X-Id</strong>: 6a40aaf05b738f18</span>
+                    <br><strong>X-Response</strong>: Cache-Control:max-age=10
+                    <br><strong>Content-Length</strong>: 0
+                    <br><strong>Host</strong>: cache.example.org
+                </div>
+            </td>
+            <td class="6a40aaf05b738f18 message response" rid="6a40aaf05b738f18"><span class="startLine" rid="6a40aaf05b738f18"><span class="statusCode">200 Ok</span> <span class="protocol">HTTP/1.1</span></span> <span class="oi oi-caret-bottom toggleCollapse"></span>
+                <div class="collapse show">
+                    <span class="6a40aaf05b738f18 text-light bg-dark"><strong>X-Id</strong>: 6a40aaf05b738f18</span>
+                    
+                    <br><strong>Date</strong>: Fri, 27 Apr 2018 12:40:14 GMT
+                    <br><span class="text-danger"><strong>Cache-Control</strong>: max-age=10</span>
+                    <br><strong>Content-Type</strong>: application/json
+                    <br><strong>Connection</strong>: close
+                    <br><strong>Content-Length</strong>: 25
+                    <br>
+                    <br><span class="responseBody" bid="6a40aaf05b738f18">{"Id":"6a40aaf05b738f18"}</span></div>
+            </td>
+            <td><span class="oi oi-circle-x" aria-hidden="true" style="color:red"></span></td>
+            <td><span class="oi oi-circle-check" aria-hidden="true" style="color:green"></span></td>
+        </tr>
+        <tr class="table-info">
+            <td colspan="5">5 second(s) later</td>
+        </tr>
+        <tr id="request11">
+            <td class="9250d41fff6246ea message request" rid="9250d41fff6246ea"><span class="startLine" rid="9250d41fff6246ea"><span class="method">GET</span> <span class="url">/rsc</span> <span class="protocol">HTTP/1.1</span></span> <span class="oi oi-caret-bottom toggleCollapse"></span>
+                <div class="collapse show">
+                        <span class="text-warning"><strong>Accept</strong>: application/json</span>
+                    <br><span class="9250d41fff6246ea"><strong>X-Id</strong>: 9250d41fff6246ea</span>
+                    <br><strong>X-Response</strong>: Cache-Control:max-age=10
+                    <br><strong>Content-Length</strong>: 0
+                    <br><strong>Host</strong>: localhost:3000
+            
+                    <br>
+                </div>
+            </td>
+            <td class="6a40aaf05b738f18 message response" rid="6a40aaf05b738f18"><span class="startLine" rid="6a40aaf05b738f18"><span class="statusCode">200 Ok</span> <span class="protocol">HTTP/1.1</span></span> <span class="oi oi-caret-bottom toggleCollapse"></span>
+                <div class="collapse show">
+                    <span class="6a40aaf05b738f18 text-light bg-dark"><strong>X-Id</strong>: 6a40aaf05b738f18</span>
+                    <br><strong>Date</strong>: Fri, 27 Apr 2018 12:40:15 GMT
+                    <br><strong>Cache-Control</strong>: max-age=10
+                    <br><strong>Content-Type</strong>: application/json
+                    <br><strong>Content-Length</strong>: 25
+                    <br><strong>Age</strong>: 5
+                    <br><span class="responseBody" bid="6a40aaf05b738f18">{"Id":"6a40aaf05b738f18"}</span></div>
+            </td>
+            <td><span class="oi oi-circle-check" aria-hidden="true" style="color:green"></span></td>
+            <td><span class="oi oi-circle-check" aria-hidden="true" style="color:green"></span></td>
+        </tr>
+        <tr class="table-info">
+            <td colspan="5">1 second(s) later</td>
+        </tr>
+    </tbody>
+</table>
+    <p class="text-justify">
+        The first request contains the <var class="text-primary">GET</var> method and targets the URL path <var class="text-violet">/rsc</var>. It includes the <var class="text-warning">Accept</var> and <span class="text-warning">Cache-Control</span> header fields asking to retrieve the addressed resource in an <var class="text-warning">application/json</var> representation that must not be a stored copy from a cache. The header fields provided with the <var>-s</var> parameter flag should be added to the response and are therefore transferred to the cache test server in the <var>X-Response</var> header field of the request. If a request reaches and is processed by the cache test server, it appends the header fields contained in <var>X-Response</var> header field of the request to the response. In the given example, the server includes the <var class="text-danger">Cache-Control</var> header field with a value of <var class="text-danger">max-age=10</var>. Moreover, all requests comprise the <var>X-Id</var> header field which embodies a unique random id. Each request id is returned by the cache test server in case the request reaches it. The cache test server adds the request id in the <var>X-Id</var> header field of the response as well as the response body (see response in row 1). The request id inside the request and the response allows to evaluate whether a received response has been issued by a caching system or the cache test server. By means of the added <var>X-Id</var> header fields, one can assess that the first response is sourced from the server as it contains the same <var>X-Id</var> header field value as the triggering request. The second response instead is sourced from a cache (declared by the green background when clicking on this response), since it comprises the request id of the first request and not the one from the triggering request. Another indicator for a cached response is the <var>Age</var> header field. Finally, the cache test server adds the <var>Date</var> header field to the response representing the response creation time. 
+        The Table shows that both responses are in compliance with the expected properties specified the request/response definitions in the Listing. The first response comes from the server and contains the status code <var>200 Ok</var> while the second is recycled by the web caching systems and comprise the status code <var>200 Ok</var> likewise. 
+    </p>
+    <p class="text-justify">
+    With these test case syntax we defined 397 test cases which be can be obtained <a href="/testsuite" target="_blank">.
+    </p>
+    <p>
+        
+            
+        <div class="container">
+            <a href="/cachetester" class="btn btn-primary">Testing Non-Browser Caches</a>
+                        
+            <a href="/cachetester?cacheType=browser" class="btn btn-primary">Testing Browser Caches</a>
+        </div>
+            
+        </div>
+        
+    </p>
+    </div>
+   <script src='@routes.Assets.versioned("javascripts/cacheTestRendering.js")' type="text/javascript"></script>
+
+}

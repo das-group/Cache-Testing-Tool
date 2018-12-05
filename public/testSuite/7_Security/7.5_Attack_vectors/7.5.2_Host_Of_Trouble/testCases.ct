@@ -1,0 +1,12 @@
+# Security>Attack vectors>Host Of Trouble>
+
+## 7.5.2.1 Attack vectors: Host of Trouble
+GET /rsc -c 'ac:application/json;hot:1'
+
+## 7.5.2.2 Attack vectors: Host of Trouble with spaces
+GET /rsc -c 'ac:application/json;hot:2'
+
+## 7.5.2.3 Attack vectors: Host of Trouble with spaces
+GET /rsc -c 'ac:application/json;hot:3'
+
+# Security>Attack vectors>Host Of Trouble>

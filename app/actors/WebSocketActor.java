@@ -239,6 +239,17 @@ public class WebSocketActor extends UntypedAbstractActor {
 									"Something: GET http://www.target.site/~victim/bar.html HTTP/1.1\n" +
 									"Host: www.target.site\n" +
 									"Connection: Keep-Alive"));
+						} else if (requestHeaderFieldName.equals("hot") && requestHeaderFieldValue.equals("1")) {
+							request.addHeader("Host","example.org");
+							request.addHeader("Host","example.de");
+
+						} else if (requestHeaderFieldName.equals("hot") && requestHeaderFieldValue.equals("2")) {
+							request.addHeader("Host","example.org");
+							request.addHeader(" Host","example.de");
+
+						} else if (requestHeaderFieldName.equals("hot") && requestHeaderFieldValue.equals("3")) {
+							request.addHeader(" Host", "example.org");
+							request.addHeader("Host", "example.de");
 						} else {
 							request.setHeader(requestHeaderFieldName, requestHeaderFieldValue);
 						}

@@ -23,6 +23,7 @@ libraryDependencies += "org.apache.ant" % "ant" % "1.8.2"
 // https://mvnrepository.com/artifact/net.sourceforge.cssparser/cssparser
 libraryDependencies += "net.sourceforge.cssparser" % "cssparser" % "0.9.24"
 
+
 libraryDependencies ++= Seq(
   ehcache
 )

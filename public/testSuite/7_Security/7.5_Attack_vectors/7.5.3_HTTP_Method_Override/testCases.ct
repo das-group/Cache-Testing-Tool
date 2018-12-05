@@ -1,0 +1,25 @@
+# Security>Attack vectors>HTTP Method Override>
+
+## 7.5.3.1 Attack vectors: HTTP Method Override attack with heuristic caching and POST and 404
+GET /rsc -c 'ac:application/json;X-HTTP-Method-Override:POST;st:404' -e 'ch:false;st:404'
+GET /rsc -c 'ac:application/json' -e 'ch:true;st:404'
+
+## 7.5.3.2 Attack vectors: HTTP Method Override attack with explicit caching
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=60' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=60' -e 'ch:true:st:200'
+POST /rsc -c 'ac:application/json;X-HTTP-Method-Override:GET' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;X-HTTP-Method-Override:POST' -e 'ch:false;st:404'
+GET /rsc -c 'ac:application/json' -e 'ch:true;st:404'
+
+## 7.5.3.3 Attack vectors: HTTP Method Override attack with heuristic caching and POST and 405
+GET /rsc -c 'ac:application/json;X-HTTP-Method-Override:POST;st:405' -e 'ch:false;st:405'
+GET /rsc -c 'ac:application/json' -e 'ch:true;st:405'
+
+## 7.5.3.4 Attack vectors: HTTP Method Override attack with explicit caching
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=60' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json' -s 'cc:max-age=60' -e 'ch:true:st:200'
+POST /rsc -c 'ac:application/json;X-HTTP-Method-Override:GET' -e 'ch:false;st:200'
+GET /rsc -c 'ac:application/json;X-HTTP-Method-Override:POST' -e 'ch:false;st:404'
+GET /rsc -c 'ac:application/json' -e 'ch:true;st:404'
+
+# Security>Attack vectors>HTTP Method Override>

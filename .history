@@ -1,0 +1,6 @@
+sbt
+ls
+./sbt
+exit
+run
+help

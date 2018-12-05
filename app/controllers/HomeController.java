@@ -9,6 +9,8 @@ import play.libs.streams.ActorFlow;
 import play.mvc.*;
 import play.cache.*;
 import views.html.*;
+import utils.CacheTestHelper;
+import java.io.IOException;
 
 
 public class HomeController extends Controller {
@@ -53,6 +55,11 @@ public class HomeController extends Controller {
         String query = request().getQueryString("a");
         response().setHeader("X-Header",query);
         return ok(query);
+    }
+
+    public Result getTestCases() throws IOException{
+        CacheTestHelper.buildTestCases();
+        return ok("Ok");
     }
 
 

@@ -1,0 +1,79 @@
+# Security>None Cacheable Error Pages>
+
+## 7.6.1 Error Pages:  Status Code 400
+GET /rsc -c 'ac:application/json' -s 'st:400' -e 'ch:false;st:400'
+GET /rsc -c 'ac:application/json' -s 'st:400' -e 'ch:true;st:400'
+
+## 7.6.2 Error Pages:  Status Code 402
+GET /rsc -c 'ac:application/json' -s 'st:402' -e 'ch:false;st:402'
+GET /rsc -c 'ac:application/json' -s 'st:402' -e 'ch:true;st:402'
+
+## 7.6.3 Error Pages:  Status Code 403
+GET /rsc -c 'ac:application/json' -s 'st:403' -e 'ch:false;st:403'
+GET /rsc -c 'ac:application/json' -s 'st:403' -e 'ch:true;st:403'
+
+## 7.6.4 Error Pages:  Status Code 406
+GET /rsc -c 'ac:application/json' -s 'st:406' -e 'ch:false;st:406'
+GET /rsc -c 'ac:application/json' -s 'st:406' -e 'ch:true;st:406'
+
+## 7.6.5 Error Pages:  Status Code 408
+GET /rsc -c 'ac:application/json' -s 'st:408' -e 'ch:false;st:408'
+GET /rsc -c 'ac:application/json' -s 'st:408' -e 'ch:true;st:408'
+
+## 7.6.6 Error Pages:  Status Code 408
+GET /rsc -c 'ac:application/json' -s 'st:408' -e 'ch:false;st:408'
+GET /rsc -c 'ac:application/json' -s 'st:408' -e 'ch:true;st:408'
+
+## 7.6.7 Error Pages:  Status Code 409
+GET /rsc -c 'ac:application/json' -s 'st:409' -e 'ch:false;st:409'
+GET /rsc -c 'ac:application/json' -s 'st:409' -e 'ch:true;st:409'
+
+## 7.6.8 Error Pages:  Status Code 411
+GET /rsc -c 'ac:application/json' -s 'st:411' -e 'ch:false;st:411'
+GET /rsc -c 'ac:application/json' -s 'st:411' -e 'ch:true;st:411'
+
+## 7.6.9 Error Pages:  Status Code 413
+GET /rsc -c 'ac:application/json' -s 'st:413' -e 'ch:false;st:413'
+GET /rsc -c 'ac:application/json' -s 'st:413' -e 'ch:true;st:413'
+
+## 7.6.10 Error Pages:  Status Code 414
+GET /rsc -c 'ac:application/json' -s 'st:414' -e 'ch:false;st:414'
+GET /rsc -c 'ac:application/json' -s 'st:414' -e 'ch:true;st:414'
+
+## 7.6.11 Error Pages:  Status Code 415
+GET /rsc -c 'ac:application/json' -s 'st:415' -e 'ch:false;st:415'
+GET /rsc -c 'ac:application/json' -s 'st:415' -e 'ch:true;st:415'
+
+## 7.6.12 Error Pages:  Status Code 417
+GET /rsc -c 'ac:application/json' -s 'st:417' -e 'ch:false;st:417'
+GET /rsc -c 'ac:application/json' -s 'st:417' -e 'ch:true;st:417'
+
+## 7.6.13 Error Pages:  Status Code 426
+GET /rsc -c 'ac:application/json' -s 'st:426' -e 'ch:false;st:426'
+GET /rsc -c 'ac:application/json' -s 'st:426' -e 'ch:true;st:426'
+
+## 7.6.14 Error Pages:  Status Code 500
+GET /rsc -c 'ac:application/json' -s 'st:500' -e 'ch:false;st:500'
+GET /rsc -c 'ac:application/json' -s 'st:500' -e 'ch:true;st:500'
+
+## 7.6.15 Error Pages:  Status Code 501
+GET /rsc -c 'ac:application/json' -s 'st:501' -e 'ch:false;st:501'
+GET /rsc -c 'ac:application/json' -s 'st:501' -e 'ch:true;st:501'
+
+## 7.6.16 Error Pages:  Status Code 502
+GET /rsc -c 'ac:application/json' -s 'st:502' -e 'ch:false;st:502'
+GET /rsc -c 'ac:application/json' -s 'st:502' -e 'ch:true;st:502'
+
+## 7.6.17 Error Pages:  Status Code 503
+GET /rsc -c 'ac:application/json' -s 'st:503' -e 'ch:false;st:503'
+GET /rsc -c 'ac:application/json' -s 'st:503' -e 'ch:true;st:503'
+
+## 7.6.18 Error Pages:  Status Code 504
+GET /rsc -c 'ac:application/json' -s 'st:504' -e 'ch:false;st:504'
+GET /rsc -c 'ac:application/json' -s 'st:504' -e 'ch:true;st:504'
+
+## 7.6.19 Error Pages:  Status Code 505
+GET /rsc -c 'ac:application/json' -s 'st:505' -e 'ch:false;st:505'
+GET /rsc -c 'ac:application/json' -s 'st:505' -e 'ch:true;st:505'
+
+# Security>None Cacheable Error Pages>

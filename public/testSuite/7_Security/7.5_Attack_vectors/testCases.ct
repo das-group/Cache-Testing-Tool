@@ -40,23 +40,4 @@ GET /rsc -c 'ac:text/html' 'exp:-5'
 GET /rsc -c 'ac:text/html;rs:1'
 GET /rsc -c 'ac:text/html'
 
-## 7.5.11 Attack vectors: HTTP request smuggeling
-GET /rsc -c 'ac:application/json;reqsmug:1'
-POST /rsc -c 'ac:application/json;reqsmug:1'
-PUT /rsc -c 'ac:application/json;reqsmug:1'
-DELETE /rsc -c 'ac:application/json;reqsmug:1'
-PATCH /rsc -c 'ac:application/json;reqsmug:1'
-OPTIONS /rsc -c 'ac:application/json;reqsmug:1'
-
-## 7.5.12 Attack vectors: HTTP request smuggeling
-GET /rsc -c 'ac:application/json;reqsmug:2'
-POST /rsc -c 'ac:application/json;reqsmug:2'
-PUT /rsc -c 'ac:application/json;reqsmug:2'
-DELETE /rsc -c 'ac:application/json;reqsmug:2'
-PATCH /rsc -c 'ac:application/json;reqsmug:2'
-OPTIONS /rsc -c 'ac:application/json;reqsmug:2'
-
-## 7.5.13 Attack vectors: Host of Trouble
-GET /rsc -c 'ac:application/json;hot:1'
-
 # Security>Attack vectors>

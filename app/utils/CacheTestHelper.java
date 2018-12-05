@@ -6,8 +6,15 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -200,6 +207,184 @@ public class CacheTestHelper {
 			paramsArray[i] = paramsList.get(i);
 		}
 		return paramsArray;
+	}
+
+	public static void buildTestCases() throws IOException {
+		File rootFolder = new File("public/testSuite");
+		File[] mainTopics = rootFolder.listFiles();
+		ArrayNode testModelObject = Json.newArray();
+		Arrays.sort(mainTopics, (f1, f2) -> f1.compareTo(f2));
+		for (int i = 0; i < mainTopics.length ; i++){
+
+			if (mainTopics[i].isDirectory()) {
+
+				String[] numberAndName = separateNumberAndName(mainTopics[i].getName());
+				String topicName = numberAndName[1];
+				String fileName = numberAndName[1] + ">";
+				String topicNumber = numberAndName[0];
+				ObjectNode mainTopicObject = Json.newObject();
+				mainTopicObject.put("number",topicNumber);
+				mainTopicObject.put("name",topicName);
+
+				mainTopicObject.set("subtopics",listFolders(mainTopics[i],topicName, fileName));
+				testModelObject.add(mainTopicObject);
+
+
+			}
+		}
+
+		BufferedWriter out = new BufferedWriter(new FileWriter("public/testSuite/testSuite.json"));
+		out.write(testModelObject.toString());
+		out.close();
+		System.out.println(testModelObject);
+	}
+
+	public static JsonNode listFolders(File file, String parentTopicNumber, String fileName) throws IOException {
+		String topicNumber = "";
+		String topicName = "";
+		String currentFileName = fileName;
+		ArrayNode subTopics = Json.newArray();
+		if(file.isDirectory()){
+			File[] subdirectories = file.listFiles();
+			Arrays.sort(subdirectories, (f1, f2) -> f1.compareTo(f2));
+			for (int i = 0; i < subdirectories.length ; i++) {
+				fileName = currentFileName;
+
+				if(subdirectories[i].isDirectory()){
+					String[] numberAndName = separateNumberAndName(subdirectories[i].getName());
+					topicName = numberAndName[1];
+					fileName += topicName+">";
+					topicNumber = numberAndName[0];
+					ObjectNode subTopicObject = Json.newObject();
+					subTopicObject.put("name",topicName);
+					subTopicObject.put("number",topicNumber);
+
+					JsonNode object = listFolders(subdirectories[i],topicNumber, fileName);
+					if(object.isArray()){
+						subTopicObject.set("subtopics",object);
+						subTopics.add(subTopicObject);
+					} else if(object.isObject()){
+						subTopicObject.set("testCases",object.get("testCases"));
+						subTopicObject.set("references",object.get("references"));
+						subTopics.add(subTopicObject);
+					}
+
+				} else if(subdirectories[i].getName().equals("testCases.ct")){
+					ObjectNode testCaseObject = Json.newObject();
+
+					testCaseObject.put("testCases",renumberTestCases(subdirectories[i], parentTopicNumber, fileName));
+					String absolutePath = subdirectories[i].getAbsolutePath();
+					String name = subdirectories[i].getName();
+
+					String referencesPath = absolutePath.replaceAll(name,"references.json");
+					System.out.println(referencesPath);
+					File referenceFile = new File(referencesPath);
+					if(referenceFile.exists()){
+						String referenceString = new String(Files.readAllBytes(referenceFile.toPath()));
+						testCaseObject.set("references",Json.parse(referenceString));
+					}
+
+					return testCaseObject;
+				}
+			}
+		}
+
+		return subTopics;
+	}
+
+	public static String[] separateNumberAndName(String foldername){
+		String[] numberAndName = new String[2];
+		numberAndName[1] = "";
+		String[] foldernameArray = foldername.split("_");
+		numberAndName[0] = foldernameArray[0];
+		for (int i = 1; i < foldernameArray.length ; i++){
+			if(i < (foldernameArray.length - 1) )
+				numberAndName[1] += foldernameArray[i] + " ";
+			else
+				numberAndName[1] += foldernameArray[i];
+
+		}
+
+		return numberAndName;
+	}
+
+	public static String renumberTestCases(File file, String topicNumber, String fileName) throws IOException {
+		String testCaseFile = new String(Files.readAllBytes(file.toPath()));
+		String testCaseFileNewStucture = "";
+		Scanner scanner = new Scanner(testCaseFile);
+		if(scanner.hasNext()){
+
+			testCaseFileNewStucture = "# "+fileName + "\n";
+
+			int counter = 1;
+			int emptyLineCounter = 0;
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+
+				if (!line.isEmpty() && line.charAt(0) == '#') {
+
+					if(line.startsWith("###")){
+						continue;
+					}
+
+					if(line.startsWith("##")){
+						testCaseFileNewStucture += "\n";
+						String[] lineArray = line.split(" ");
+						String hashTag = lineArray[0];
+						String testCaseName = "";
+						if(Character.isDigit(line.charAt(0))){
+
+						}
+						for (int i = Character.isDigit(line.charAt(3)) ? 2 : 1; i < lineArray.length ; i++) {
+							if(i < (lineArray.length - 1))
+								testCaseName +=lineArray[i] + " ";
+							else
+								testCaseName +=lineArray[i];
+						}
+
+						String testCaseStartLine = "##"+" "+topicNumber+"."+ counter++ + " " + testCaseName;
+						testCaseFileNewStucture+=testCaseStartLine + "\n";
+					}
+				} else if(line.isEmpty()){
+//                    emptyLineCounter++;
+//                    if(emptyLineCounter > 1){
+//                        emptyLineCounter = 0;
+//                        continue;
+//                    }
+//                    testCaseFileNewStucture += "\n";
+					continue;
+				} else if(checkTestCaseLinePattern(line)) {
+					testCaseFileNewStucture += line + "\n";
+				}
+			}
+			testCaseFileNewStucture+="\n" + "# "+fileName;
+
+		}
+
+		BufferedWriter out = new BufferedWriter(new FileWriter(file.getParentFile()+"/testCases.ct"));
+		out.write(testCaseFileNewStucture);
+		out.close();
+
+		return testCaseFileNewStucture;
+		//System.out.println(testCaseFileNewStucture);
+	}
+
+	public static boolean checkTestCaseLinePattern(String line){
+		ArrayList<String> httpMethods = new ArrayList<>();
+		httpMethods.add("GET");
+		httpMethods.add("HEAD");
+		httpMethods.add("PUT");
+		httpMethods.add("POST");
+		httpMethods.add("DELETE");
+		httpMethods.add("PATCH");
+		httpMethods.add("OPTIONS");
+
+		String[] lineArray = line.split(" ");
+		if(httpMethods.contains(lineArray[0])){
+			return true;
+		}
+
+		return false;
 	}
 
 

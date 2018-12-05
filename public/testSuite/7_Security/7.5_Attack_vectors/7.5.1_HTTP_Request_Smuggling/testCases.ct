@@ -1,0 +1,19 @@
+# Security>Attack vectors>HTTP Request Smuggling>
+
+## 7.5.1.1 Attack vectors: HTTP Request Smuggling
+GET /rsc -c 'ac:application/json;reqsmug:1'
+POST /rsc -c 'ac:application/json;reqsmug:1'
+PUT /rsc -c 'ac:application/json;reqsmug:1'
+DELETE /rsc -c 'ac:application/json;reqsmug:1'
+PATCH /rsc -c 'ac:application/json;reqsmug:1'
+OPTIONS /rsc -c 'ac:application/json;reqsmug:1'
+
+## 7.5.1.2 Attack vectors: HTTP Request Smuggling
+GET /rsc -c 'ac:application/json;reqsmug:2'
+POST /rsc -c 'ac:application/json;reqsmug:2'
+PUT /rsc -c 'ac:application/json;reqsmug:2'
+DELETE /rsc -c 'ac:application/json;reqsmug:2'
+PATCH /rsc -c 'ac:application/json;reqsmug:2'
+OPTIONS /rsc -c 'ac:application/json;reqsmug:2'
+
+# Security>Attack vectors>HTTP Request Smuggling>
