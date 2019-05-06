@@ -1,6 +1,7 @@
 # Cache Testing Tool
 
 This is the Cache Testing Tool for analyzing various web caching systems including browser caches, proxy caches and CDNs. 
+More information on this tool and can be found [here](https://das.th-koeln.de/developments/cache-testing-tool/).
 
 ## Running
 
@@ -10,4 +11,4 @@ This tool is implemented with [Play](https://www.playframework.com/). You need [
 sbt run
 ```
 
-Open a web browser and go to http://localhost:9000. A tutorial is available on the start page. More information on this tool and can be found at our [homepage](https://das.th-koeln.de/developments/cache-testing-tool/).
+Open a web browser and go to http://localhost:9000. 
